@@ -5,6 +5,7 @@
 ** navy_second_player.c
 */
 
+#include <signal.h>
 #include "my_navy.h"
 
 game_winner_t navy_second_player(const __pid_t first_player_pid,
@@ -12,5 +13,6 @@ game_winner_t navy_second_player(const __pid_t first_player_pid,
 {
     if (!first_player_pid)
         return (ERROR);
+    kill(first_player_pid, SIGUSR2);
     return (CURRENT_PLAYER);
 }

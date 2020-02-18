@@ -51,8 +51,9 @@ boolean_t get_given_boats(char **map_coords, const int fd)
             return (FALSE);
         index += 1;
     }
-    line_stock = get_next_line(fd, 10);
-    if (line_stock) {
+    if (line_stock)
+        free(line_stock);
+    if (read(fd, line_stock, 1) > 0) {
         free(line_stock);
         return (FALSE);
     }

@@ -27,6 +27,10 @@ typedef struct viewed_map_s {
     char enemy_map[65];
 } viewed_map_t;
 
+typedef struct connection_info_s {
+    __pid_t enemy_pid;
+} connection_info_t;
+
 //Prints the navy usage of the program onto the stdout.
 //
 //Returns TRUE if could write.

@@ -22,17 +22,10 @@ typedef enum game_winner_e {
     ERROR = 84
 } game_winner_t;
 
-typedef struct point_s {
-    size_t x;
-    size_t y;
-} point_t;
-
-typedef struct map_list_s {
-    point_t cell_coords;
-    char point_value;
-    struct map_list_s *next;
-} map_list_t;
-
+typedef struct viewed_map_s {
+    char ally_map[65];
+    char enemy_map[65];
+} viewed_map_t;
 
 
 boolean_t usage(void);
@@ -51,5 +44,9 @@ game_winner_t navy_second_player(const __pid_t first_player_pid,
 void print_my_pid(const __pid_t pid);
 
 boolean_t get_given_boats(char **map_coords, const int fd);
+
+viewed_map_t create_gameboards(const char path_boats_pos[]);
+
+boolean_t print_gameboards(viewed_map_t *gameboards);
 
 #endif /* MY_NAVY_H_ */

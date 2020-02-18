@@ -9,7 +9,7 @@
 #include "my_navy.h"
 
 static boolean_t place_boats_in_map_coords(char **map_coords,
-                                            char **boat_stats)
+                                        char **boat_stats)
 {
     char x_init = '\0';
     char x_end = '\0';
@@ -23,7 +23,7 @@ static boolean_t place_boats_in_map_coords(char **map_coords,
         return (FALSE);
     }
     length = my_absolute_getnbr(boat_stats[0]);
-    if (length < 2 || length > 8)
+    if (length < 2 || length > 5)
         return (FALSE);
     x_init = boat_stats[1][0];
     if (x_init < 'A' || x_init > 'H')

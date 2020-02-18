@@ -39,7 +39,7 @@ void my_put_nbr_lu(unsigned long int nb, const char *base);
 void my_put_nbr_ll(long long int nb, const char *base);
 void my_put_nbr_llu(unsigned long long int nb, const char *base);
 
-void *my_memset(char *to_write_on, const char to_fill_with,
+void my_memset(char *to_write_on, const char to_fill_with,
                 const size_t nb_bytes);
 
 //computes len of types

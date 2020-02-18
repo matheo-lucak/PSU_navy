@@ -47,7 +47,6 @@ SRC	=	./my_putchar.c				\
 SRCMYPRINTF	=	./my_printf/my_printf.c				\
 				./my_printf/flag_checkers.c			\
 				./my_printf/get_flag.c				\
-				./my_printf/create_flag_array.c		\
 				./my_printf/redirect_putchar.c		\
 				./my_printf/redirect_put_nbr.c		\
 				./my_printf/redirect_short.c		\

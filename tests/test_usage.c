@@ -23,7 +23,7 @@ Test(usage, print_usage)
 
 Test(usage, check_usage_error)
 {
-    close(0);
+    close(1);
     if (!usage())
         cr_assert_eq(1, 1);
     else

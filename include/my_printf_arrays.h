@@ -1,27 +1,15 @@
 /*
 ** EPITECH PROJECT, 2019
-** PSU_my_printf_2019
+** PSU_navy_2019
 ** File description:
-** header to link files from my_printf program
+** my_printf_arrays.h
 */
 
-#ifndef MY_PRINTF_H_
+#ifndef MY_PRINTF_ARRAYS_H_
 
-#define MY_PRINTF_H_
+#define MY_PRINTF_ARRAYS_H_
 
 #include <stdarg.h>
-
-int my_printf(const char *input, ...);
-
-int get_flag(va_list ap, const char *shifted_input, int *idx);
-
-int check_for_flag(const char c);
-int check_for_mod(const char c);
-int check_for_base(const char c);
-
-int my_flag_cmp(const char *to_find, const char *template);
-
-void flag_percent(const char *shifted_input, int *idx);
 
 void flag_c(va_list ap);
 void flag_d(va_list ap);
@@ -39,4 +27,25 @@ void mod_hashtag(va_list ap, const char *shifted_input, int *idx);
 void mod_short(va_list ap, const char *shifted_input, int *idx);
 void mod_long(va_list ap, const char *shifted_input, int *idx);
 
-#endif /* MY_PRINTF_H_ */
+void (*list_flags[])(va_list ap) = {
+    flag_c,
+    flag_d,
+    flag_i,
+    flag_u,
+    flag_b,
+    flag_o,
+    flag_lower_x,
+    flag_upper_x,
+    flag_lower_s,
+    flag_upper_s,
+    flag_p
+};
+
+void (*list_mods[])(va_list ap, const char *shifted_input, int *idx) = {
+    mod_hashtag,
+    mod_short,
+    mod_long,
+    mod_long
+};
+
+#endif /* MY_PRINTF_ARRAYS_H_ */

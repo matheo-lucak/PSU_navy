@@ -8,13 +8,15 @@
 #include "my.h"
 #include "my_navy.h"
 
-game_winner_t navy_first_player(const char *path_my_pos)
+game_winner_t navy_first_player(const char path_boats_pos[])
 {
     const __pid_t my_pid = getpid();
+    viewed_map_t gameboards;
 
     print_my_pid(my_pid);
-    my_putstr("\nwaiting for enemy connection...\n");
-    while (1);
+    my_putstr("waiting for enemy connection...\n");
+    gameboards = create_gameboards(path_boats_pos);
+    print_gameboards(&gameboards);
     return (CURRENT_PLAYER);
 }
 

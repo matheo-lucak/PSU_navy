@@ -14,7 +14,12 @@ int main(const int ac, const char * const av[])
         usage();
         return (84);
     }
-    if (ac == 2)
+    if (ac == 2) {
+        if (!my_strcmp(av[1], "-h", 0)) {
+            usage();
+            return (0);
+        }
         return (navy_first_player(av[1]));
+    }
     return (navy_second_player(my_getnbr(av[1]), av[2]));
 }

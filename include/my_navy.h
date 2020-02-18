@@ -27,7 +27,10 @@ typedef struct viewed_map_s {
     char enemy_map[65];
 } viewed_map_t;
 
-
+//Prints the navy usage of the program onto the stdout.
+//
+//Returns TRUE if could write.
+//Returns FALSE otherwise.
 boolean_t usage(void);
 
 

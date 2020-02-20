@@ -50,15 +50,3 @@ game_winner_t navy_first_player(const char path_boats_pos[])
     print_gameboards(&gameboards);
     return (CURRENT_PLAYER);
 }
-
-// my positions:
-//  |A B C D E F G H
-// -+---------------
-// 1|. . . 2 . . . .
-// 2|. . . 2 . . . .
-// 3|. . . . . . . .
-// 4|3 3 3 . . . . .
-// 5|. . 4 . . . . .
-// 6|. . 4 5 5 5 5 5
-// 7|. . 4 . . . . .
-// 8|. . 4 . . . . .

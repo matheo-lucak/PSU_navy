@@ -5,6 +5,7 @@
 ** navy_first_player.c
 */
 
+#include <time.h>
 #include <signal.h>
 #include "my.h"
 #include "my_navy.h"
@@ -13,22 +14,28 @@ boolean_t is_connected = FALSE;
 __pid_t enemy_pid = 0;
 
 static void get_enemy_connection(const int sig_num, siginfo_t *info, void *vp)
-{ 
+{
     if (sig_num == SIGUSR2) {
         is_connected = TRUE;
         enemy_pid = info->si_pid;
     }
 }
 
-static void check_for_enemy_connection()
+static void wait_enemy_connection(void)
 {
+    struct timespec ts = {0, 1000000000L};
     struct sigaction sa;
 
     sa.sa_handler = (void *)get_enemy_connection;
     sa.sa_flags = SA_SIGINFO;
     my_putstr("waiting for enemy connection...\n");
-    while (!is_connected)
+    while (!is_connected) {
+        sigaction(SIGUSR1, &sa, NULL);
+        nanosleep(&ts, NULL);
         sigaction(SIGUSR2, &sa, NULL);
+        nanosleep(&ts, NULL);
+    }
+    my_putstr("\nenemy connected\n");
 }
 
 game_winner_t navy_first_player(const char path_boats_pos[])
@@ -36,9 +43,10 @@ game_winner_t navy_first_player(const char path_boats_pos[])
     const __pid_t my_pid = getpid();
     viewed_map_t gameboards;
 
+    if (!create_gameboards(&gameboards, path_boats_pos))
+        return (ERROR);
     print_my_pid(my_pid);
-    check_for_enemy_connection();
-    gameboards = create_gameboards(path_boats_pos);
+    wait_enemy_connection();
     print_gameboards(&gameboards);
     return (CURRENT_PLAYER);
 }

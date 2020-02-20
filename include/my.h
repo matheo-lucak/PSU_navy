@@ -55,7 +55,7 @@ void my_show_arr(char **array);
 int my_arrcmp(char **first, char **second);
 char **my_arrdup(const char * const *template);
 char **my_append_to_array(char **array, char *str, const int freer);
-void my_free_arr(char **array);
+void my_free_arr(void **array);
 
 char *my_strdup(const char *template);
 char *my_strndup(const char *template, int n);

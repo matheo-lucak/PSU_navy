@@ -5,11 +5,13 @@
 ## compiles c files with libs into the navy program
 ##
 
-SRC			=	src/navy_first_player.c						\
-				src/navy_second_player.c					\
-				src/print_my_pid.c							\
-				src/gameboards_handling/create_gameboards.c	\
-				src/gameboards_handling/print_gameboards.c	\
+SRC			=	src/navy_first_player.c							\
+				src/navy_second_player.c						\
+				src/print_my_pid.c								\
+				src/gameboards_handling/create_gameboards.c		\
+				src/gameboards_handling/print_gameboards.c		\
+				src/gameboards_handling/get_given_boats.c		\
+				src/gameboards_handling/ships_error_handling.c	\
 				src/usage.c
 
 MAIN		=	src/main.c

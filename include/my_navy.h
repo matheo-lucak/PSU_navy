@@ -27,6 +27,12 @@ typedef struct viewed_map_s {
     char enemy_map[65];
 } viewed_map_t;
 
+typedef struct ship_s {
+    size_t len;
+    char begin[2];
+    char end[2];
+} ship_t;
+
 typedef struct connection_info_s {
     __pid_t enemy_pid;
 } connection_info_t;
@@ -38,22 +44,29 @@ typedef struct connection_info_s {
 boolean_t usage(void);
 
 
-
+//Handles the game from the host side.
 game_winner_t navy_first_player(const char *path_my_pos);
 
 
-
+//Handles the game from the guest side.
 game_winner_t navy_second_player(const __pid_t first_player_pid,
                                 const char *path_my_pos);
 
 
-
+//Prints ->    my pid: "pid"\n
 void print_my_pid(const __pid_t pid);
 
-boolean_t get_given_boats(char **map_coords, const int fd);
-
-viewed_map_t create_gameboards(const char path_boats_pos[]);
+boolean_t create_gameboards(viewed_map_t *gameboards,
+                            const char path_boats_pos[]);
 
 boolean_t print_gameboards(viewed_map_t *gameboards);
+
+boolean_t get_given_boats(char ally_map[65], const char path_boats_pos[]);
+
+boolean_t treat_line(ship_t *ship, char * restrict * restrict splitted_line);
+
+boolean_t check_boats_lengths(const char boats_lengths[4], const size_t len);
+
+boolean_t check_too_many_chars(const int fd);
 
 #endif /* MY_NAVY_H_ */

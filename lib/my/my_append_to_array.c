@@ -10,7 +10,7 @@
 
 static void free_assets(char **array, char **str)
 {
-    my_free_arr(array);
+    my_free_arr((void **)array);
     if (*str)
         free(*str);
 }

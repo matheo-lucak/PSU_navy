@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 
-void my_free_arr(char **array)
+void my_free_arr(void **array)
 {
     int i = 0;
 

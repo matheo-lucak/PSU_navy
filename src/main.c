@@ -21,5 +21,5 @@ int main(const int ac, const char * const av[])
         }
         return (navy_first_player(av[1]));
     }
-    return (navy_second_player(my_getnbr(av[1]), av[2]));
+    return (navy_second_player(my_absolute_getnbr(av[1]), av[2]));
 }

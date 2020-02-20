@@ -19,6 +19,12 @@ typedef enum boolean_e {
     TRUE
 } boolean_t;
 
+typedef enum is_attack_valid_e {
+    VALID,
+    WRONG,
+    LEAVE
+} is_attack_valid_t;
+
 typedef enum game_winner_e {
     CURRENT_PLAYER = 0,
     ENEMY_PLAYER = 1,

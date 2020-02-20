@@ -44,10 +44,9 @@ game_winner_t navy_second_player(const __pid_t first_player_pid,
     co_info.enemy_pid = first_player_pid;
     if (!create_gameboards(&gameboards, path_boats_pos))
         return (ERROR);
+    print_my_pid();
     if (kill(first_player_pid, SIGUSR2))
         return (ERROR);
-    print_my_pid();
-    nanosleep(&ts, NULL);
     wait_enemy_connection();
     print_gameboards(&gameboards);
     return (CURRENT_PLAYER);

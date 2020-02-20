@@ -15,7 +15,7 @@ static boolean_t treat_each_ship(const int fd, ship_t *ship,
     char * restrict * restrict splitted_line = NULL;
     static char boats_lengths[4];
 
-    splitted_line = my_str_to_word_array(get_next_line(fd, 9), ":", 1);
+    splitted_line = my_str_to_word_array(get_next_line(fd), ":", 1);
     if (!treat_line(ship, splitted_line)) {
         my_free_arr((void **)splitted_line);
         return (FALSE);

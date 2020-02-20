@@ -27,7 +27,7 @@ int my_str_is_alphanum(const char *str);
 // prints onto the stdout with custom flags to print variables
 int my_printf(char const *input, ...);
 // gets a line from a file, gets the next one at each function call
-char *get_next_line(const int fd, const int nb_bytes);
+char *get_next_line(const int fd);
 
 // -> all differents my_put_nbr's
 void my_put_nbr(int nb, const char *base);

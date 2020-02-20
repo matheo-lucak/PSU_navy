@@ -13,7 +13,7 @@ boolean_t check_too_many_chars(const int fd)
 {
     char *line = NULL;
 
-    line = get_next_line(fd, 9);
+    line = get_next_line(fd);
     if (line) {
         free(line);
         return (FALSE);

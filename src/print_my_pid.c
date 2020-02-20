@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include "my.h"
 
-void print_my_pid(const __pid_t pid)
+void print_my_pid(void)
 {
-    my_printf("my pid: %d\n", pid);
+    my_printf("my pid: %d\n", getpid());
 }

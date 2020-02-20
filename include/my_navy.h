@@ -11,6 +11,9 @@
 
 #include <unistd.h>
 
+#include <time.h>
+#include <signal.h>
+
 typedef enum boolean_e {
     FALSE,
     TRUE
@@ -34,8 +37,12 @@ typedef struct ship_s {
 } ship_t;
 
 typedef struct connection_info_s {
+    struct sigaction sa;
+    boolean_t is_connected;
     __pid_t enemy_pid;
 } connection_info_t;
+
+connection_info_t co_info;
 
 //Prints the navy usage of the program onto the stdout.
 //
@@ -45,16 +52,16 @@ boolean_t usage(void);
 
 
 //Handles the game from the host side.
-game_winner_t navy_first_player(const char *path_my_pos);
+game_winner_t navy_first_player(const char path_boats_pos[]);
 
 
 //Handles the game from the guest side.
 game_winner_t navy_second_player(const __pid_t first_player_pid,
-                                const char *path_my_pos);
+                                const char path_boats_pos[]);
 
 
 //Prints ->    my pid: "pid"\n
-void print_my_pid(const __pid_t pid);
+void print_my_pid(void);
 
 boolean_t create_gameboards(viewed_map_t *gameboards,
                             const char path_boats_pos[]);

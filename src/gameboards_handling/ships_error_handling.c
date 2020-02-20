@@ -55,9 +55,9 @@ static boolean_t check_linearity_and_length(const char begin[2],
 {
     if (begin[0] != end[0] && begin[1] != end[1])
         return (FALSE);
-    if (!(begin[0] - end[0]) && end[1] - begin[1] != len)
+    if (!(begin[0] - end[0]) && end[1] - begin[1] != len - 1)
         return (FALSE);
-    if (!(begin[1] - end[1]) && end[0] - begin[0] != len)
+    if (!(begin[1] - end[1]) && end[0] - begin[0] != len - 1)
         return (FALSE);
     return (TRUE);
 }

@@ -82,4 +82,8 @@ boolean_t check_boats_lengths(const char boats_lengths[4], const size_t len);
 
 boolean_t check_too_many_chars(const int fd);
 
+is_attack_valid_t get_attack(char *input);
+
+is_attack_valid_t check_attack_error(char *input);
+
 #endif /* MY_NAVY_H_ */

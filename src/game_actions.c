@@ -101,6 +101,8 @@ game_winner_t game_loop(viewed_map_t gameboards, const boolean_t play_first)
     if (!play_first)
         binary_bridge = receive_signal();
     do {
+        if (get_attack(&input) == LEAVE)
+            return (LEAVE);
         send_signal(((input[1] - 1) * 8) + input[0] - 'A');
         binary_bridge = receive_signal();
         update_gameboard(&gameboards, binary_bridge, play_first);

@@ -30,10 +30,7 @@ is_attack_valid_t check_attack_error(char **input)
 
 is_attack_valid_t get_attack(char **input)
 {
-    is_attack_valid_t input_validity = LEAVE;
-
     my_putstr("attack: ");
     *input = get_next_line(0);
-    input_validity = check_attack_error(input);
-    return (input_validity);
+    return (check_attack_error(input));
 }

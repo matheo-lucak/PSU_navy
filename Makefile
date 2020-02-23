@@ -8,11 +8,14 @@
 SRC			=	src/navy_first_player.c							\
 				src/navy_second_player.c						\
 				src/print_my_pid.c								\
+				src/attack.c									\
+				src/game_actions.c								\
 				src/signals_handling/signals_handlers.c			\
 				src/signals_handling/refresh_siginterpret.c		\
 				src/gameboards_handling/create_gameboards.c		\
-				src/gameboards_handling/print_gameboards.c		\
+				src/gameboards_handling/gameboard_checker.c		\
 				src/gameboards_handling/get_given_boats.c		\
+				src/gameboards_handling/print_gameboards.c		\
 				src/gameboards_handling/ships_error_handling.c	\
 				src/usage.c
 

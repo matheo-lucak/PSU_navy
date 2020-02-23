@@ -9,6 +9,8 @@
 
 #define MY_NAVY_H_
 
+#define UNDEFINED -1
+
 typedef enum boolean_e {
     FALSE,
     TRUE
@@ -25,6 +27,7 @@ typedef enum is_attack_valid_e {
 typedef enum game_winner_e {
     CURRENT_PLAYER = 0,
     ENEMY_PLAYER = 1,
+    LEAVE_GAME = 0,
     ERROR = 84
 } game_winner_t;
 
@@ -36,7 +39,7 @@ typedef struct viewed_map_s {
 
 
 typedef struct ship_s {
-    size_t len;
+    int len;
     char begin[2];
     char end[2];
 } ship_t;
@@ -110,8 +113,8 @@ boolean_t check_boats_lengths(const char boats_lengths[4], const size_t len);
 
 boolean_t check_too_many_chars(const int fd);
 
-is_attack_valid_t get_attack(char *input);
+is_attack_valid_t get_attack(char **input);
 
-is_attack_valid_t check_attack_error(char *input);
+is_attack_valid_t check_attack_error(char **input);
 
 #endif /* MY_NAVY_H_ */

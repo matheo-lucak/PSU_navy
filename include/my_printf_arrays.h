@@ -27,7 +27,7 @@ void mod_hashtag(va_list ap, const char *shifted_input, int *idx);
 void mod_short(va_list ap, const char *shifted_input, int *idx);
 void mod_long(va_list ap, const char *shifted_input, int *idx);
 
-void (*list_flags[])(va_list ap) = {
+const void (*list_flags[])(va_list ap) = {
     flag_c,
     flag_d,
     flag_i,
@@ -41,7 +41,7 @@ void (*list_flags[])(va_list ap) = {
     flag_p
 };
 
-void (*list_mods[])(va_list ap, const char *shifted_input, int *idx) = {
+const void (*list_mods[])(va_list ap, const char *shifted_input, int *idx) = {
     mod_hashtag,
     mod_short,
     mod_long,

@@ -5,16 +5,9 @@
 ** navy_first_player.c
 */
 
+#include <unistd.h>
 #include "my.h"
 #include "connection_info.h"
-
-static void get_enemy_connection(const int sig_num, siginfo_t *info, void *vp)
-{
-    if (sig_num == SIGUSR2) {
-        co_info.is_connected = TRUE;
-        co_info.enemy_pid = info->si_pid;
-    }
-}
 
 static boolean_t wait_enemy_connection(void)
 {
@@ -24,7 +17,12 @@ static boolean_t wait_enemy_connection(void)
     while (!co_info.is_connected);
     if (kill(co_info.enemy_pid, SIGUSR2))
         return (FALSE);
-    usleep(100000);
+    co_info.sa.sa_handler = (void *)get_enemy_signal;
+    co_info.is_connected = FALSE;
+    while (!co_info.is_connected && co_info.catched_signal != SIGUSR2);
+    if (kill(co_info.enemy_pid, SIGUSR2))
+        return (FALSE);
+    co_info.catched_signal = UNDEFINED;
     my_putstr("\nenemy connected\n");
     return (TRUE);
 }
@@ -32,8 +30,9 @@ static boolean_t wait_enemy_connection(void)
 static void setup_signal_connection(void)
 {
     co_info.is_connected = FALSE;
-    co_info.sa.sa_handler = (void *)get_enemy_connection;
+    co_info.sa.sa_handler = (void *)get_enemy_pid;
     co_info.sa.sa_flags = SA_SIGINFO;
+    co_info.catched_signal = UNDEFINED;
 }
 
 game_winner_t navy_first_player(const char path_boats_pos[])

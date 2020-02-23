@@ -47,6 +47,9 @@ int my_int_size(int nb, int i);
 int my_strlen(const char *str);
 int my_arrlen(char **array);
 
+int my_pow(int nb, int p);
+float my_powf(float nb, float p);
+
 int my_strnlen(const char *str, const int n);
 int my_strlen_char(const char *str, const char c);
 int my_strlen_cmpstr(const char *str, const char cmp[]);

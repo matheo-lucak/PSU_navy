@@ -6,7 +6,6 @@
 */
 
 #include <criterion/criterion.h>
-#include <criterion/redirect.h>
 #include "my_navy.h"
 #include "my.h"
 

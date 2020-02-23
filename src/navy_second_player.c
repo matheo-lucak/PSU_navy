@@ -10,8 +10,7 @@
 
 static boolean_t wait_enemy_connection(void)
 {
-    sigaction(SIGUSR1, &co_info.sa, NULL);
-    sigaction(SIGUSR2, &co_info.sa, NULL);
+    refresh_siginterpret();
     while (!co_info.is_connected && co_info.catched_signal != SIGUSR2);
     if (kill(co_info.enemy_pid, SIGUSR2))
         return (FALSE);
@@ -26,11 +25,9 @@ static boolean_t wait_enemy_connection(void)
 
 static void setup_signal_connection(const int first_player_pid)
 {
-    co_info.is_connected = FALSE;
     co_info.enemy_pid = first_player_pid;
     co_info.sa.sa_handler = (void *)get_enemy_signal;
     co_info.sa.sa_flags = SA_SIGINFO;
-    co_info.catched_signal = UNDEFINED;
 }
 
 game_winner_t navy_second_player(const int first_player_pid,

@@ -18,7 +18,7 @@
 typedef struct connection_info_s {
     struct sigaction sa;
     boolean_t is_connected;
-    __pid_t enemy_pid;
+    int enemy_pid;
 } connection_info_t;
 
 connection_info_t co_info;

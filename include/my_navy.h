@@ -9,9 +9,6 @@
 
 #define MY_NAVY_H_
 
-#include <unistd.h>
-
-
 typedef enum boolean_e {
     FALSE,
     TRUE
@@ -19,9 +16,9 @@ typedef enum boolean_e {
 
 
 typedef enum is_attack_valid_e {
+    LEAVE,
     VALID,
-    WRONG,
-    LEAVE
+    WRONG
 } is_attack_valid_t;
 
 
@@ -69,7 +66,7 @@ game_winner_t navy_first_player(const char path_boats_pos[]);
 
 
 //Handles the game from the guest side.
-game_winner_t navy_second_player(const __pid_t first_player_pid,
+game_winner_t navy_second_player(const int first_player_pid,
                                 const char path_boats_pos[]);
 
 
@@ -113,5 +110,8 @@ boolean_t check_boats_lengths(const char boats_lengths[4], const size_t len);
 
 boolean_t check_too_many_chars(const int fd);
 
+is_attack_valid_t get_attack(char *input);
+
+is_attack_valid_t check_attack_error(char *input);
 
 #endif /* MY_NAVY_H_ */

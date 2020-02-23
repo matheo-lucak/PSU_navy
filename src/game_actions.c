@@ -1,112 +1,94 @@
 /*
-** EPITECH PROJECT, 2020
+** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** game_actions
+** game_actions.c
 */
-
-#include <unistd.h>
-#include <stdlib.h>
 #include "my.h"
 #include "connection_info.h"
 
-static binary_signal_t receive_signal(void)
+static int game_state(const char ally_map[65], const boolean_t play_first)
 {
-    binary_signal_t binary_bridge = {0};
-    boolean_t received_signal = 0;
-    int index = 0;
-
-    while (index < 6) {
-        co_info.is_connected = FALSE;
+    co_info.is_connected = FALSE;
+    if (!play_first) {
         while (!co_info.is_connected);
-        binary_bridge.bridge |= co_info.catched_signal;
-        binary_bridge.bridge <<= 1;
-        index += 1;
+        if (co_info.catched_signal == SIGUSR2)
+            return (CURRENT_PLAYER);
     }
-    return (binary_bridge);
-}
-
-static void send_signal(const int nb)
-{
-    binary_signal_t bin_signal = {nb};
-    int index = 0;
-
-    while (index < 6) {
-        if (bin_signal.bridge & 32)
-            kill(co_info.enemy_pid, SIGUSR2);
-        else
-            kill(co_info.enemy_pid, SIGUSR1);
-        usleep(100000);
-        bin_signal.bridge <<= 1;
-        index += 1;
-    }
-}
-
-is_attack_valid_t get_input(char **input)
-{
-    is_attack_valid_t input_validity = VALID;
-
-    do {
-        input_validity = get_attack(&input);
-        if (input_validity == LEAVE)
-            return (LEAVE_GAME);
-    } while (input_validity != VALID);
-    return (input_validity);
-}
-
-void update_ally_map(viewed_map_t *gameboards, binary_signal_t binary_bridge)
-{
-    if ((gameboards->ally_map[binary_bridge.bridge] >= '2' &&
-        gameboards->ally_map[binary_bridge.bridge] >= '5') ||
-        gameboards->ally_map[binary_bridge.bridge] == 'x') {
-        gameboards->ally_map[binary_bridge.bridge] = 'x';
-        kill(co_info.enemy_pid, SIGUSR2);
-    } else {
-        gameboards->ally_map[binary_bridge.bridge] = 'o';
+    usleep(10000);
+    if (is_map_still_up(ally_map))
         kill(co_info.enemy_pid, SIGUSR1);
+    else {
+        kill(co_info.enemy_pid, SIGUSR2);
+        return (ENEMY_PLAYER);
     }
-}
-
-void update_ennemy_map(viewed_map_t *gameboards, binary_signal_t binary_bridge)
-{
-    while (!co_info.is_connected);
-    if (co_info.catched_signal == SIGUSR2) {
-        my_putstr(": hit\n");
-        gameboards->ally_map[binary_bridge.bridge] = 'x';
-    } else if (co_info.catched_signal == SIGUSR1) {
-        my_putstr(": missed\n");
-        gameboards->ally_map[binary_bridge.bridge] = 'o';
+    if (play_first) {
+        while (!co_info.is_connected);
+        if (co_info.catched_signal == SIGUSR2)
+            return (CURRENT_PLAYER);
     }
+    co_info.is_connected = FALSE;
+    return (UNDEFINED);
 }
 
-void update_gameboard(viewed_map_t *gameboards, binary_signal_t binary_bridge,
-                                                    const boolean_t play_first)
-{
-    static const void (*update_map[2])(viewed_map_t *, binary_signal_t) = {
-        update_ally_map,
-        update_ennemy_map
-    };
-    update_map[play_first](gameboards, binary_bridge);
-    update_map[(play_first + 1 % 2)](gameboards, binary_bridge);
-}
-
-game_winner_t game_loop(viewed_map_t gameboards, const boolean_t play_first)
+static void evaluate_enemy_attack(char ally_map[65])
 {
     binary_signal_t binary_bridge = {0};
-    is_attack_valid_t input_validity = VALID;
-    game_winner_t winner = CURRENT_PLAYER;
+    boolean_t hit_or_missed = FALSE;
+
+    binary_bridge = get_enemy_attack();
+    my_printf("%c%c: ", binary_bridge.bridge % 8 + 'A',
+                        binary_bridge.bridge / 8 + '1');
+    hit_or_missed = update_map(ally_map, binary_bridge);
+    if (!hit_or_missed)
+        kill(co_info.enemy_pid, SIGUSR1);
+    else    
+        kill(co_info.enemy_pid, SIGUSR2);
+    my_printf(hit_or_missed == TRUE ? "hit\n" : "missed\n");
+}
+
+static void evaluate_my_attack(char enemy_map[65])
+{
+    binary_signal_t target = {0};
     char *input = NULL;
 
-    co_info.sa.sa_handler = (void *)get_enemy_signal;
+    input = get_input();
+    if (!input)
+        return;
+    target.bridge = 8 * (input[1] - '1') + input[0] - 'A';
+    send_my_attack(target.bridge);
+    while (!co_info.is_connected);
+    co_info.is_connected = FALSE;
+    if (co_info.catched_signal == SIGUSR1) {
+        my_printf("%s: missed\n", input);
+        enemy_map[target.bridge] = 'o';
+    } else if (co_info.catched_signal == SIGUSR2) {
+        my_printf("%s: hit\n", input);
+        enemy_map[target.bridge] = 'x';
+    }
+}
+
+static void attack_and_wait_enemy(viewed_map_t *gameboards,
+                                const boolean_t play_first)
+{
     if (!play_first)
-        binary_bridge = receive_signal();
+        evaluate_enemy_attack(gameboards->ally_map);
+    evaluate_my_attack(gameboards->enemy_map);
+    if (play_first) {
+        usleep(10000);
+        evaluate_enemy_attack(gameboards->ally_map);
+    }
+}
+
+int game_actions(viewed_map_t gameboards, const boolean_t play_first)
+{
+    int is_game_finished = UNDEFINED;
+
+    print_gameboards(gameboards);
     do {
-        if (get_attack(&input) == LEAVE)
-            return (LEAVE);
-        send_signal(((input[1] - 1) * 8) + input[0] - 'A');
-        binary_bridge = receive_signal();
-        update_gameboard(&gameboards, binary_bridge, play_first);
-        winner = did_someone_win(gameboards);
-    } while (winner);
-    return (winner);
+        attack_and_wait_enemy(&gameboards, play_first);
+        print_gameboards(gameboards);
+        is_game_finished = game_state(gameboards.ally_map, play_first);
+    } while (is_game_finished == UNDEFINED);
+    return (is_game_finished);
 }

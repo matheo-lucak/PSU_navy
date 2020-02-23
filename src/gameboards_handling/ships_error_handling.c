@@ -21,7 +21,7 @@ boolean_t check_too_many_chars(const int fd)
     return (TRUE);
 }
 
-boolean_t check_boats_lengths(const char boats_lengths[4], const size_t len)
+boolean_t check_boats_lengths(const char boats_lengths[4], const int len)
 {
     register size_t index = 0;
     char has_been_done[4] = "0000";

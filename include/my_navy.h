@@ -65,12 +65,12 @@ boolean_t usage(void);
 */
 
 //Handles the game from the host side.
-game_winner_t navy_first_player(const char path_boats_pos[]);
+int navy_first_player(const char path_boats_pos[]);
 
 
 //Handles the game from the guest side.
-game_winner_t navy_second_player(const int first_player_pid,
-                                const char path_boats_pos[]);
+int navy_second_player(const int first_player_pid,
+                        const char path_boats_pos[]);
 
 
 /*
@@ -86,7 +86,7 @@ void print_my_pid(void);
 
 
 //Prints the ally and enemy gameboards.
-boolean_t print_gameboards(viewed_map_t *gameboards);
+boolean_t print_gameboards(viewed_map_t gameboards);
 
 
 /*
@@ -108,13 +108,22 @@ boolean_t get_given_boats(char ally_map[65], const char path_boats_pos[]);
 boolean_t treat_line(ship_t *ship, char * restrict * restrict splitted_line);
 
 
-boolean_t check_boats_lengths(const char boats_lengths[4], const size_t len);
+boolean_t check_boats_lengths(const char boats_lengths[4], const int len);
 
 
 boolean_t check_too_many_chars(const int fd);
 
 is_attack_valid_t get_attack(char **input);
 
-is_attack_valid_t check_attack_error(char **input);
+
+
+
+boolean_t is_map_still_up(const char map[65]);
+
+int game_actions(viewed_map_t gameboards, const boolean_t play_first);
+
+void send_my_attack(const int nb);
+
+char *get_input(void);
 
 #endif /* MY_NAVY_H_ */

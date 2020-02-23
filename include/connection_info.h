@@ -32,6 +32,10 @@ void get_enemy_pid(const int sig_num, siginfo_t *info, void *vp);
 
 void get_enemy_signal(const int sig_num, siginfo_t *info, void *vp);
 
+binary_signal_t get_enemy_attack(void);;
+
 void refresh_siginterpret(void);
+
+boolean_t update_map(char map[65], const binary_signal_t target);
 
 #endif /* CONNECTION_INFO_H_ */

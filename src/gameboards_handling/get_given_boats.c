@@ -10,7 +10,7 @@
 #include "my_navy.h"
 
 static boolean_t treat_each_ship(const int fd, ship_t *ship,
-                                const size_t index)
+                                const int index)
 {
     char * restrict * restrict splitted_line = NULL;
     static char boats_lengths[4];
@@ -33,9 +33,9 @@ static boolean_t treat_each_ship(const int fd, ship_t *ship,
 
 static boolean_t place_each_ship(const ship_t ship, char ally_map[65])
 {
-    register size_t boat_index = 8 * (ship.begin[1] - 49) + ship.begin[0] - 65;
-    register size_t index = 0;
-    register size_t offset = 1;
+    register int boat_index = 8 * (ship.begin[1] - 49) + ship.begin[0] - 65;
+    register int index = 0;
+    register int offset = 1;
 
     if (!(ship.begin[0] - ship.end[0]))
         offset = 8;
@@ -52,7 +52,7 @@ static boolean_t place_each_ship(const ship_t ship, char ally_map[65])
 boolean_t get_given_boats(char ally_map[65], const char path_boats_pos[])
 {
     const int fd = open(path_boats_pos, O_RDONLY);
-    register size_t index = 0;
+    register int index = 0;
     ship_t ship;
 
     if (fd == -1)

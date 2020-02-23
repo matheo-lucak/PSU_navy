@@ -12,6 +12,7 @@ static boolean_t wait_enemy_connection(void)
 {
     refresh_siginterpret();
     while (!co_info.is_connected && co_info.catched_signal != SIGUSR2);
+    print_my_pid();
     if (kill(co_info.enemy_pid, SIGUSR2))
         return (FALSE);
     co_info.is_connected = FALSE;
@@ -30,7 +31,7 @@ static void setup_signal_connection(const int first_player_pid)
     co_info.sa.sa_flags = SA_SIGINFO;
 }
 
-game_winner_t navy_second_player(const int first_player_pid,
+int navy_second_player(const int first_player_pid,
                                 const char path_boats_pos[])
 {
     viewed_map_t gameboards;
@@ -40,11 +41,9 @@ game_winner_t navy_second_player(const int first_player_pid,
     setup_signal_connection(first_player_pid);
     if (!create_gameboards(&gameboards, path_boats_pos))
         return (ERROR);
-    print_my_pid();
     if (kill(first_player_pid, SIGUSR2))
         return (ERROR);
     if (!wait_enemy_connection())
         return (ERROR);
-    print_gameboards(&gameboards);
-    return (CURRENT_PLAYER);
+    return (game_actions(gameboards, 0));
 }

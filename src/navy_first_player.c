@@ -32,7 +32,7 @@ static void setup_signal_connection(void)
     co_info.sa.sa_flags = SA_SIGINFO;
 }
 
-game_winner_t navy_first_player(const char path_boats_pos[])
+int navy_first_player(const char path_boats_pos[])
 {
     const int my_pid = getpid();
     viewed_map_t gameboards;
@@ -43,6 +43,5 @@ game_winner_t navy_first_player(const char path_boats_pos[])
     print_my_pid();
     if (!wait_enemy_connection())
         return (ERROR);
-    print_gameboards(&gameboards);
-    return (CURRENT_PLAYER);
+    return (game_actions(gameboards, 1));
 }

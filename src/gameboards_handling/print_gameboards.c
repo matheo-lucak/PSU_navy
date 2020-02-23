@@ -24,13 +24,13 @@ void print_map(const char *map)
     }
 }
 
-boolean_t print_gameboards(viewed_map_t *gameboards)
+boolean_t print_gameboards(viewed_map_t gameboards)
 {
-    if (my_strlen(gameboards->ally_map) != 64 ||
-        my_strlen(gameboards->enemy_map) != 64)
+    if (my_strlen(gameboards.ally_map) != 64
+        || my_strlen(gameboards.enemy_map) != 64)
         return (FALSE);
     my_putstr("\nmy positions:\n");
-    print_map(gameboards->ally_map);
+    print_map(gameboards.ally_map);
     my_putstr("\nenemy's positions:\n");
-    print_map(gameboards->enemy_map);
+    print_map(gameboards.enemy_map);
 }

@@ -54,7 +54,7 @@ is_attack_valid_t get_input(char **input)
     return (input_validity);
 }
 
-void update_gameboard(viewed_map_t *gameboards, binary_signal_t binary_bridge)
+void update_ally_map(viewed_map_t *gameboards, binary_signal_t binary_bridge)
 {
     if ((gameboards->ally_map[binary_bridge.bridge] >= '2' &&
         gameboards->ally_map[binary_bridge.bridge] >= '5') ||
@@ -65,14 +65,29 @@ void update_gameboard(viewed_map_t *gameboards, binary_signal_t binary_bridge)
         gameboards->ally_map[binary_bridge.bridge] = 'o';
         kill(co_info.enemy_pid, SIGUSR1);
     }
+}
+
+void update_ennemy_map(viewed_map_t *gameboards, binary_signal_t binary_bridge)
+{
     while (!co_info.is_connected);
-    if (co_info.catched_signal) {
+    if (co_info.catched_signal == SIGUSR2) {
         my_putstr(": hit\n");
         gameboards->ally_map[binary_bridge.bridge] = 'x';
-    } else {
+    } else if (co_info.catched_signal == SIGUSR1) {
         my_putstr(": missed\n");
         gameboards->ally_map[binary_bridge.bridge] = 'o';
     }
+}
+
+void update_gameboard(viewed_map_t *gameboards, binary_signal_t binary_bridge,
+                                                    const boolean_t play_first)
+{
+    static const void (*update_map[2])(viewed_map_t *, binary_signal_t) = {
+        update_ally_map,
+        update_ennemy_map
+    };
+    update_map[play_first](gameboards, binary_bridge);
+    update_map[(play_first + 1 % 2)](gameboards, binary_bridge);
 }
 
 game_winner_t game_loop(viewed_map_t gameboards, const boolean_t play_first)
@@ -82,13 +97,13 @@ game_winner_t game_loop(viewed_map_t gameboards, const boolean_t play_first)
     game_winner_t winner = CURRENT_PLAYER;
     char *input = NULL;
 
-    co_info.sa.sa_handler = (void *)enemy_signal_catcher;
+    co_info.sa.sa_handler = (void *)get_enemy_signal;
     if (!play_first)
         binary_bridge = receive_signal();
     do {
         send_signal(((input[1] - 1) * 8) + input[0] - 'A');
         binary_bridge = receive_signal();
-        update_gameboard(&gameboards, binary_bridge);
+        update_gameboard(&gameboards, binary_bridge, play_first);
         winner = did_someone_win(gameboards);
     } while (winner);
     return (winner);

@@ -8,6 +8,7 @@
 SRC			=	src/navy_first_player.c							\
 				src/navy_second_player.c						\
 				src/print_my_pid.c								\
+				src/signals_handlers.c							\
 				src/gameboards_handling/create_gameboards.c		\
 				src/gameboards_handling/print_gameboards.c		\
 				src/gameboards_handling/get_given_boats.c		\

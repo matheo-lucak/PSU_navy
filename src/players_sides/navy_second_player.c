@@ -32,8 +32,7 @@ static void setup_signal_connection(const int first_player_pid)
     co_info.sa.sa_flags = SA_SIGINFO;
 }
 
-int navy_second_player(const int first_player_pid,
-                                const char path_boats_pos[])
+int navy_second_player(const int first_player_pid, const char path_boats_pos[])
 {
     viewed_map_t gameboards;
 

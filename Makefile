@@ -10,7 +10,7 @@ SRC			=	src/usage.c										\
 				src/attacks_handling/get_and_send_attacks.c		\
 				src/gameboards_handling/create_gameboards.c		\
 				src/gameboards_handling/get_given_boats.c		\
-				src/gameboards_handling/is_map_up.c				\
+				src/gameboards_handling/endgame_condition.c		\
 				src/gameboards_handling/navy_game_actions.c		\
 				src/gameboards_handling/print_gameboards.c		\
 				src/gameboards_handling/ships_error_handling.c	\

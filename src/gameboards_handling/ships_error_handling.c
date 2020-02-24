@@ -9,22 +9,22 @@
 #include "my.h"
 #include "navy.h"
 
-boolean_t check_too_many_chars(const int fd)
+boolean_t leftovers_in_file(const int fd)
 {
     char *line = NULL;
 
     line = get_next_line(fd);
     if (line) {
         free(line);
-        return (FALSE);
+        return (TRUE);
     }
-    return (TRUE);
+    return (FALSE);
 }
 
 boolean_t check_boats_lengths(const char boats_lengths[4], const int len)
 {
-    register int index = 0;
     char has_been_done[4] = "0000";
+    int index = 0;
 
     while (index <= len) {
         if (boats_lengths[index] < '2' || boats_lengths[index] > '5')
@@ -49,9 +49,8 @@ static boolean_t fill_edges_coords(char *line, char value[2])
     return (TRUE);
 }
 
-static boolean_t check_linearity_and_length(const char begin[2],
-                                            const char end[2],
-                                            const int len)
+static boolean_t ship_correct_coordinates(const char begin[2],
+                                        const char end[2], const int len)
 {
     if (begin[0] != end[0] && begin[1] != end[1])
         return (FALSE);
@@ -77,7 +76,7 @@ boolean_t treat_boat_line(ship_t *ship, char ** splitted_line)
         return (FALSE);
     if (!fill_edges_coords(splitted_line[2], ship->end))
         return (FALSE);
-    if (!check_linearity_and_length(ship->begin, ship->end, ship->len))
+    if (!ship_correct_coordinates(ship->begin, ship->end, ship->len))
         return (FALSE);
     return (TRUE);
 }

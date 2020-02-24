@@ -7,9 +7,9 @@
 
 #include "navy_def.h"
 
-boolean_t is_map_still_up(const char map[65])
+boolean_t battleships_left(const char map[65])
 {
-    register int index = 0;
+    int index = 0;
 
     while (index < 64) {
         if (map[index] >= '2' && map[index] <= '5')

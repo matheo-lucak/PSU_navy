@@ -17,7 +17,7 @@ static int game_state(const char ally_map[65], const boolean_t play_first)
             return (CURRENT_PLAYER);
     }
     usleep(10000);
-    if (is_map_still_up(ally_map))
+    if (battleships_left(ally_map))
         kill(co_info.enemy_pid, SIGUSR1);
     else {
         kill(co_info.enemy_pid, SIGUSR2);
@@ -56,7 +56,7 @@ static void evaluate_my_attack(char enemy_map[65])
     input = get_input();
     if (!input)
         return;
-    target.bridge = 8 * (input[1] - '1') + input[0] - 'A';
+    target.bridge = get_target_aim(input[0], input[1]);
     send_my_attack(target.bridge);
     while (!co_info.is_connected);
     co_info.is_connected = FALSE;

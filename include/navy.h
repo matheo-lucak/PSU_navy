@@ -91,14 +91,14 @@ boolean_t treat_boat_line(ship_t *ship, char **splitted_line);
 boolean_t check_boats_lengths(const char boats_lengths[4], const int len);
 
 
-boolean_t check_too_many_chars(const int fd);
+boolean_t leftovers_in_file(const int fd);
 
 is_attack_valid_t get_attack(char **input);
 
 
 
 
-boolean_t is_map_still_up(const char map[65]);
+boolean_t battleships_left(const char map[65]);
 
 int navy_game_actions(viewed_map_t gameboards, const boolean_t play_first);
 

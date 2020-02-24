@@ -6,38 +6,8 @@
 */
 
 #include <unistd.h>
-#include <stdlib.h>
 #include "my.h"
 #include "navy_connect.h"
-
-static is_attack_valid_t check_attack_error(char **input)
-{
-    if (!(*input))
-        return (LEAVE);
-    if (my_strlen(*input) != 2 || (*input)[0] < 'A' || (*input)[0] > 'H'
-        || (*input)[1] < '1' || (*input)[1] > '8') {
-        free(*input);
-        return (WRONG);
-    }
-    return (VALID);
-}
-
-char *get_input(void)
-{
-    is_attack_valid_t input_validity = WRONG;
-    char *input = NULL;
-
-    while (input_validity != VALID) {
-        my_putstr("\nattack: ");
-        input = get_next_line(0);
-        input_validity = check_attack_error(&input);
-        if (input_validity == LEAVE)
-            return (NULL);
-        if (input_validity == WRONG)
-            my_putstr("wrong position");
-    }
-    return (input);
-}
 
 boolean_t get_enemy_attack(binary_signal_t *bridger)
 {
@@ -61,18 +31,29 @@ boolean_t get_enemy_attack(binary_signal_t *bridger)
     return (TRUE);
 }
 
-void send_my_attack(const int nb)
+static boolean_t send_binary_code(const binary_signal_t bin_signal)
+{
+    if (bin_signal.bridge & 32) {
+        if (kill(co_info.enemy_pid, SIGUSR2))
+            return (FALSE);
+    } else {
+        if (kill(co_info.enemy_pid, SIGUSR1))
+            return (FALSE);
+    }
+    usleep(10000);
+    return (TRUE);
+}
+
+boolean_t send_my_attack(const int nb)
 {
     binary_signal_t bin_signal = {nb};
     register int index = 0;
 
     while (index < 6) {
-        if (bin_signal.bridge & 32)
-            kill(co_info.enemy_pid, SIGUSR2);
-        else
-            kill(co_info.enemy_pid, SIGUSR1);
-        usleep(10000);
+        if (!send_binary_code(bin_signal))
+            return (FALSE);
         bin_signal.bridge <<= 1;
         index += 1;
     }
+    return (TRUE);
 }

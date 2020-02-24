@@ -81,29 +81,41 @@ boolean_t print_gameboards(viewed_map_t gameboards);
 boolean_t create_gameboards(viewed_map_t *gameboards,
                             const char path_boats_pos[]);
 
-
+//Checks if a file contains the required boats.
 boolean_t get_given_boats(char ally_map[65], const char path_boats_pos[]);
 
-
+//Checks the given arguments in the given battleship config file.
 boolean_t treat_boat_line(ship_t *ship, char **splitted_line);
 
-
+//Checks if the given lengths are between 2 and 5 and they
+//don't occur twice or more.
 boolean_t check_boats_lengths(const char boats_lengths[4], const int len);
 
-
+//Checks if some characters overflow the file.
 boolean_t leftovers_in_file(const int fd);
 
-is_attack_valid_t get_attack(char **input);
+/*
+**                                     *************
+**                                     | Game Loop |
+**                                     *************
+*/
 
-
-
-
-boolean_t battleships_left(const char map[65]);
-
+//Main loop of the game, shifted for the two players.
 int navy_game_actions(viewed_map_t gameboards, const boolean_t play_first);
 
-void send_my_attack(const int nb);
+//Checks if battleships are left onto a map.
+boolean_t battleships_left(const char map[65]);
 
+//Gets an attack input while a valid one hasn't been given.
 char *get_input(void);
+
+//Sends an attack with a given spot to target.
+boolean_t send_my_attack(const int nb);
+
+//Places hit or missed onto your enemy_map if you hit the enemy or not.
+boolean_t evaluate_my_attack(char enemy_map[65]);
+
+//Places hit or missed onto your map if the enemy hit you or not.
+boolean_t evaluate_enemy_attack(char ally_map[65]);
 
 #endif /* NAVY_H_ */

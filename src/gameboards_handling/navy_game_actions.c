@@ -32,50 +32,6 @@ static int game_state(const char ally_map[65], const boolean_t play_first)
     return (UNDEFINED);
 }
 
-static boolean_t evaluate_enemy_attack(char ally_map[65])
-{
-    binary_signal_t binary_bridge = {0};
-    boolean_t hit_or_missed = FALSE;
-
-    if (!get_enemy_attack(&binary_bridge))
-        return (FALSE);
-    my_printf("%c%c: ", binary_bridge.bridge % 8 + 'A',
-                        binary_bridge.bridge / 8 + '1');
-    hit_or_missed = update_map(ally_map, binary_bridge);
-    if (!hit_or_missed)
-        kill(co_info.enemy_pid, SIGUSR1);
-    else    
-        kill(co_info.enemy_pid, SIGUSR2);
-    my_printf(hit_or_missed == TRUE ? "hit\n" : "missed\n");
-    return (TRUE);
-}
-
-static boolean_t evaluate_my_attack(char enemy_map[65])
-{
-    binary_signal_t target = {0};
-    char *input = NULL;
-
-    input = get_input();
-    if (!input) {
-        kill(co_info.enemy_pid, SIGUSR1);
-        return (FALSE);
-    }
-    kill(co_info.enemy_pid, SIGUSR2);
-    usleep(5000);
-    target.bridge = get_target_aim(input[0], input[1]);
-    send_my_attack(target.bridge);
-    while (!co_info.is_connected);
-    co_info.is_connected = FALSE;
-    if (co_info.catched_signal == SIGUSR1) {
-        my_printf("%s: missed\n", input);
-        enemy_map[target.bridge] = 'o';
-    } else if (co_info.catched_signal == SIGUSR2) {
-        my_printf("%s: hit\n", input);
-        enemy_map[target.bridge] = 'x';
-    }
-    return (TRUE);
-}
-
 static boolean_t attack_and_wait_enemy(viewed_map_t *gameboards,
                                 const boolean_t play_first)
 {

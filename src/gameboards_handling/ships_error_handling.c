@@ -61,7 +61,7 @@ static boolean_t ship_correct_coordinates(const char begin[2],
     return (TRUE);
 }
 
-boolean_t treat_boat_line(ship_t *ship, char ** splitted_line)
+boolean_t treat_boat_line(ship_t *ship, char **splitted_line)
 {
     int len = my_arrlen((char **)splitted_line);
 

@@ -7,8 +7,10 @@
 
 SRC			=	src/usage.c										\
 				src/print_my_pid.c								\
+				src/attacks_handling/evaluate_attacks.c			\
 				src/attacks_handling/get_and_send_attacks.c		\
 				src/gameboards_handling/create_gameboards.c		\
+				src/attacks_handling/get_input.c				\
 				src/gameboards_handling/get_given_boats.c		\
 				src/gameboards_handling/endgame_condition.c		\
 				src/gameboards_handling/navy_game_actions.c		\

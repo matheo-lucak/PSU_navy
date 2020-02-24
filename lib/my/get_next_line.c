@@ -14,7 +14,7 @@ static int is_end_of_line(char *buffer)
 {
     int i = 0;
 
-    while (buffer[i]) {
+    while (buffer[i] != '\0') {
         if (buffer[i] == '\n')
             return (1);
         i++;
@@ -29,7 +29,7 @@ static char *my_strdup_line(char *buffer)
 
     if (buffer && buffer[0] == '\n')
         return (my_strdup("\n"));
-    while (buffer[i] && buffer[i] != '\n')
+    while (buffer[i] != '\0' && buffer[i] != '\n')
         i++;
     line = my_strndup(buffer, i);
     return (line);
@@ -45,7 +45,7 @@ static char *re_alloc_buffer(char *buffer, char *stock, int mode)
         free(buffer);
         return (new_buffer);
     }
-    while (buffer[i + 1] && buffer[i + 1] != '\n')
+    while (buffer[i + 1] != '\0' && buffer[i + 1] != '\n')
         i++;
     if (buffer[i + 1] == '\0')
         return (NULL);
@@ -60,7 +60,7 @@ static char *add_in_buffer(int fd, char *buffer, int *rd)
 
     if (stock == NULL || buffer == NULL)
         return (NULL);
-    while (!is_end_of_line(buffer) && *rd) {
+    while (!is_end_of_line(buffer) && *rd != 0) {
         *rd = read(fd, stock, 128);
         if (*rd == -1)
             return (NULL);
@@ -76,12 +76,12 @@ char *get_next_line(const int fd)
     char *line = NULL;
     int rd = 1;
 
-    if (!buffer)
+    if (buffer == NULL)
         buffer = my_strdup("\0");
     if (fd == -1)
         return (NULL);
     buffer = add_in_buffer(fd, buffer, &rd);
-    if (!buffer || (!(buffer[0]) && !rd))
+    if (buffer == NULL || (buffer[0] == '\0' && rd == 0))
         return (NULL);
     line = my_strdup_line(buffer);
     buffer = re_alloc_buffer(buffer, buffer, 0);

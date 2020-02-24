@@ -24,10 +24,10 @@ static is_attack_valid_t check_attack_error(char **input)
 
 char *get_input(void)
 {
-    is_attack_valid_t input_validity = VALID;
+    is_attack_valid_t input_validity = WRONG;
     char *input = NULL;
 
-    do {
+    while (input_validity != VALID) {
         my_putstr("\nattack: ");
         input = get_next_line(0);
         input_validity = check_attack_error(&input);
@@ -35,26 +35,30 @@ char *get_input(void)
             return (NULL);
         if (input_validity == WRONG)
             my_putstr("wrong position");
-    } while (input_validity != VALID);
+    }
     return (input);
 }
 
-binary_signal_t get_enemy_attack(void)
+boolean_t get_enemy_attack(binary_signal_t *bridger)
 {
     binary_signal_t binary_bridge = {0};
     boolean_t received_signal = 0;
-    register int index = 0;
+    int index = 0;
 
     my_putstr("\nwaiting for enemy's attack...\n");
+    co_info.is_connected = FALSE;
+    while (!co_info.is_connected);
+    if (co_info.catched_signal == SIGUSR1)
+        return (FALSE);
     while (index < 6) {
         co_info.is_connected = FALSE;
         while (!co_info.is_connected);
-        binary_bridge.bridge |= ((co_info.catched_signal / 6) - 1);
+        bridger->bridge |= ((co_info.catched_signal / 6) - 1);
         index += 1;
         if (index < 6)
-            binary_bridge.bridge <<= 1;
+            bridger->bridge <<= 1;
     }
-    return (binary_bridge);
+    return (TRUE);
 }
 
 void send_my_attack(const int nb)

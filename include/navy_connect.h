@@ -96,7 +96,7 @@ void refresh_siginterpret(void);
 //Waits for 6 SIGUSR1 and/or SIGUSR2 signals and sets a 6-bit unsigned int,
 //with the protocol method, and returns int inside of a binary_signal_t
 //structure.
-binary_signal_t get_enemy_attack(void);;
+boolean_t get_enemy_attack(binary_signal_t *bridger);;
 
 //Given a map to change an a 6-bit unsigned int, modifies the space taken
 //by this spot to either a hit 'x' or a miss 'o'.

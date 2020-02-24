@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** get_given_boats.c
+** Puts the given boats onto the map while they are correct.
 */
 
 #include <fcntl.h>

@@ -2,10 +2,10 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** is_map_up.c
+** Checks if a map stills contains unhit battleships.
 */
 
-#include "my_navy.h"
+#include "navy_def.h"
 
 boolean_t is_map_still_up(const char map[65])
 {

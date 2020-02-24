@@ -2,12 +2,13 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** navy_first_player.c
+** First player side of the Navy program.
 */
 
 #include <unistd.h>
 #include "my.h"
-#include "connection_info.h"
+#include "navy_connect.h"
+#include "navy.h"
 
 static boolean_t wait_enemy_connection(void)
 {
@@ -43,5 +44,5 @@ int navy_first_player(const char path_boats_pos[])
     print_my_pid();
     if (!wait_enemy_connection())
         return (ERROR);
-    return (game_actions(gameboards, 1));
+    return (navy_game_actions(gameboards, 1));
 }

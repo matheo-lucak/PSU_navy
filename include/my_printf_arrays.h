@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2019
-** PSU_navy_2019
+** PSU_my_printf_2019
 ** File description:
-** my_printf_arrays.h
+** my_printf flags and function pointers.
 */
 
 #ifndef MY_PRINTF_ARRAYS_H_

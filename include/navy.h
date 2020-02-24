@@ -2,42 +2,22 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** my_navy.h
+** Header to link the navy c files.
 */
 
-#ifndef MY_NAVY_H_
+#ifndef NAVY_H_
 
-#define MY_NAVY_H_
+#define NAVY_H_
 
-#define UNDEFINED -1
+#include "navy_def.h"
 
-typedef enum boolean_e {
-    FALSE,
-    TRUE
-} boolean_t;
-
-
-typedef enum is_attack_valid_e {
-    LEAVE,
-    VALID,
-    WRONG
-} is_attack_valid_t;
-
-
-typedef enum game_winner_e {
-    CURRENT_PLAYER = 0,
-    ENEMY_PLAYER = 1,
-    LEAVE_GAME = 0,
-    ERROR = 84
-} game_winner_t;
-
-
+//Structure used to stock both of the maps
 typedef struct viewed_map_s {
     char ally_map[65];
     char enemy_map[65];
 } viewed_map_t;
 
-
+//Structure used to stock battleships characteristics.
 typedef struct ship_s {
     int len;
     char begin[2];
@@ -46,9 +26,9 @@ typedef struct ship_s {
 
 
 /*
-** ******************
-** | Error Handlers |
-** ******************
+**                             ******************
+**                             | Error Handlers |
+**                             ******************
 */
 
 //Prints the navy usage of the program onto the stdout.
@@ -59,9 +39,9 @@ boolean_t usage(void);
 
 
 /*
-** ***********************************************************************
-** | Different instances of the main program corresponding of the player |
-** ***********************************************************************
+**                  ***********************************************
+**                  | Different instances depending of the player |
+**                  ***********************************************
 */
 
 //Handles the game from the host side.
@@ -74,9 +54,9 @@ int navy_second_player(const int first_player_pid,
 
 
 /*
-** ************************
-** | Print-only functions |
-** ************************
+**                               ************************
+**                               | Print-only functions |
+**                               ************************
 */
 
 //Prints:
@@ -90,9 +70,9 @@ boolean_t print_gameboards(viewed_map_t gameboards);
 
 
 /*
-** *****************
-** | Maps Handling |
-** *****************
+**                                   *****************
+**                                   | Maps Handling |
+**                                   *****************
 */
 
 //Memsets both ally and enemy strings with '.'.
@@ -105,7 +85,7 @@ boolean_t create_gameboards(viewed_map_t *gameboards,
 boolean_t get_given_boats(char ally_map[65], const char path_boats_pos[]);
 
 
-boolean_t treat_line(ship_t *ship, char * restrict * restrict splitted_line);
+boolean_t treat_boat_line(ship_t *ship, char **splitted_line);
 
 
 boolean_t check_boats_lengths(const char boats_lengths[4], const int len);
@@ -120,10 +100,10 @@ is_attack_valid_t get_attack(char **input);
 
 boolean_t is_map_still_up(const char map[65]);
 
-int game_actions(viewed_map_t gameboards, const boolean_t play_first);
+int navy_game_actions(viewed_map_t gameboards, const boolean_t play_first);
 
 void send_my_attack(const int nb);
 
 char *get_input(void);
 
-#endif /* MY_NAVY_H_ */
+#endif /* NAVY_H_ */

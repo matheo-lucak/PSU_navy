@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** ships_error_handling.c
+** Handles errors from a given battleships file
 */
 
 #include <stdlib.h>
 #include "my.h"
-#include "my_navy.h"
+#include "navy.h"
 
 boolean_t check_too_many_chars(const int fd)
 {
@@ -23,7 +23,7 @@ boolean_t check_too_many_chars(const int fd)
 
 boolean_t check_boats_lengths(const char boats_lengths[4], const int len)
 {
-    register size_t index = 0;
+    register int index = 0;
     char has_been_done[4] = "0000";
 
     while (index <= len) {
@@ -62,9 +62,9 @@ static boolean_t check_linearity_and_length(const char begin[2],
     return (TRUE);
 }
 
-boolean_t treat_line(ship_t *ship, char * restrict * restrict splitted_line)
+boolean_t treat_boat_line(ship_t *ship, char ** splitted_line)
 {
-    register int len = my_arrlen((char **)splitted_line);
+    int len = my_arrlen((char **)splitted_line);
 
     if (len != 3 || my_strlen(splitted_line[0]) != 1
         || my_strlen(splitted_line[1]) != 2

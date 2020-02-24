@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "connection_info.h": "c"
+        "connection_info.h": "c",
+        "navy_def.h": "c",
+        "navy_connect.h": "c"
     }
 }

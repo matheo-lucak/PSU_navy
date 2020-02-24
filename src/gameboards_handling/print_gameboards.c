@@ -6,7 +6,7 @@
 */
 
 #include "my.h"
-#include "my_navy.h"
+#include "navy.h"
 
 void print_map(const char *map)
 {

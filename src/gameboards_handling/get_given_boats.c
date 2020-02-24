@@ -7,16 +7,16 @@
 
 #include <fcntl.h>
 #include "my.h"
-#include "my_navy.h"
+#include "navy.h"
 
 static boolean_t treat_each_ship(const int fd, ship_t *ship,
                                 const int index)
 {
-    char * restrict * restrict splitted_line = NULL;
+    char ** splitted_line = NULL;
     static char boats_lengths[4];
 
     splitted_line = my_str_to_word_array(get_next_line(fd), ":", 1);
-    if (!treat_line(ship, splitted_line)) {
+    if (!treat_boat_line(ship, splitted_line)) {
         my_free_arr((void **)splitted_line);
         close(fd);
         return (FALSE);

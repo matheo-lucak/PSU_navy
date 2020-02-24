@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** main.c
+** Main function of the navy program.
 */
 
 #include "my.h"
-#include "my_navy.h"
+#include "navy.h"
 
 int main(const int ac, const char * const av[])
 {

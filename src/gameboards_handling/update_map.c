@@ -2,10 +2,10 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** update_map.c
+** Updates a map with a hit or a miss.
 */
 
-#include "connection_info.h"
+#include "navy_connect.h"
 
 boolean_t update_map(char map[65], const binary_signal_t target)
 {
@@ -13,7 +13,7 @@ boolean_t update_map(char map[65], const binary_signal_t target)
         || map[target.bridge] == 'x') {
         map[target.bridge] = 'x';
         return (TRUE);
-        }
+    }
     map[target.bridge] = 'o';
     return (FALSE);
 }

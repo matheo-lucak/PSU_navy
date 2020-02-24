@@ -2,12 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** create_gameboards.c
+** Memsets both maps with dots and fills your map with your battleships.
 */
 
-#include <stdlib.h>
 #include "my.h"
-#include "my_navy.h"
+#include "navy.h"
 
 boolean_t create_gameboards(viewed_map_t *gameboards,
                             const char path_boats_pos[])

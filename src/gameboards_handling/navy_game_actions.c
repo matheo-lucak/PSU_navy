@@ -2,10 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** game_actions.c
+** Steps out actions done turn by turn.
 */
 #include "my.h"
-#include "connection_info.h"
+#include "navy_connect.h"
+#include "navy.h"
 
 static int game_state(const char ally_map[65], const boolean_t play_first)
 {
@@ -80,7 +81,7 @@ static void attack_and_wait_enemy(viewed_map_t *gameboards,
     }
 }
 
-int game_actions(viewed_map_t gameboards, const boolean_t play_first)
+int navy_game_actions(viewed_map_t gameboards, const boolean_t play_first)
 {
     int is_game_finished = UNDEFINED;
 
@@ -90,5 +91,9 @@ int game_actions(viewed_map_t gameboards, const boolean_t play_first)
         print_gameboards(gameboards);
         is_game_finished = game_state(gameboards.ally_map, play_first);
     } while (is_game_finished == UNDEFINED);
+    if (is_game_finished == CURRENT_PLAYER)
+        my_putstr("\nI won\n\n");
+    else if (is_game_finished == ENEMY_PLAYER)
+        my_putstr("\nEnemy won\n\n");
     return (is_game_finished);
 }

@@ -2,13 +2,13 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** get_and_send_attacks.c
+** Gets attack input and sends attacks.
 */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "my.h"
-#include "connection_info.h"
+#include "navy_connect.h"
 
 static is_attack_valid_t check_attack_error(char **input)
 {

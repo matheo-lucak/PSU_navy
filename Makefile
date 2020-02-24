@@ -5,20 +5,20 @@
 ## compiles c files with libs into the navy program
 ##
 
-SRC			=	src/navy_first_player.c							\
-				src/navy_second_player.c						\
+SRC			=	src/usage.c										\
 				src/print_my_pid.c								\
-				src/game_actions.c								\
-				src/signals_handling/signals_handlers.c			\
-				src/signals_handling/refresh_siginterpret.c		\
+				src/attacks_handling/get_and_send_attacks.c		\
 				src/gameboards_handling/create_gameboards.c		\
 				src/gameboards_handling/get_given_boats.c		\
+				src/gameboards_handling/is_map_up.c				\
+				src/gameboards_handling/navy_game_actions.c		\
 				src/gameboards_handling/print_gameboards.c		\
 				src/gameboards_handling/ships_error_handling.c	\
 				src/gameboards_handling/update_map.c			\
-				src/gameboards_handling/is_map_up.c				\
-				src/attacks_handling/get_and_send_attacks.c		\
-				src/usage.c
+				src/players_sides/navy_first_player.c			\
+				src/players_sides/navy_second_player.c			\
+				src/signals_handling/refresh_siginterpret.c		\
+				src/signals_handling/signals_handlers.c
 
 MAIN		=	src/main.c
 

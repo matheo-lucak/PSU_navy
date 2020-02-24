@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** print_my_pid.c
+** Prints the current pid of the process onto the stdout.
 */
 
 #include <unistd.h>

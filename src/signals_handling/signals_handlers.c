@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2019
-** Visual Studio Live Share (Workspace)
+** PSU_navy_2019
 ** File description:
-** signals_handlers.c
+** Assigned functions to the sigaction() functions.
 */
 
-#include "connection_info.h"
+#include "navy_connect.h"
 
 void get_enemy_pid(const int sig_num, siginfo_t *info, void *vp)
 {

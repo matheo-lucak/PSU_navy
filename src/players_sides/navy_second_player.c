@@ -2,11 +2,12 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** navy_second_player.c
+** Second player side of the navy program
 */
 
 #include "my.h"
-#include "connection_info.h"
+#include "navy_connect.h"
+#include "navy.h"
 
 static boolean_t wait_enemy_connection(void)
 {
@@ -45,5 +46,5 @@ int navy_second_player(const int first_player_pid,
         return (ERROR);
     if (!wait_enemy_connection())
         return (ERROR);
-    return (game_actions(gameboards, 0));
+    return (navy_game_actions(gameboards, 0));
 }

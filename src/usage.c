@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** usage.c
+** Prints the usage of the navy program onto the stdout.
 */
 
 #include "my.h"
-#include "my_navy.h"
+#include "navy_def.h"
 
 boolean_t usage(void)
 {

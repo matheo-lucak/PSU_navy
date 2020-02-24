@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** PSU_navy_2019
 ** File description:
-** refresh_siginterpret.c
+** Refreshes the sigactions and the global variables.
 */
 
 #include <stddef.h>
-#include "connection_info.h"
+#include "navy_connect.h"
 
 void refresh_siginterpret(void)
 {

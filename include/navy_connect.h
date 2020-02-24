@@ -12,7 +12,7 @@
 #include <signal.h>
 #include "navy_def.h"
 
-//Structure used to stock a 6-bit unsigned integer use for
+//Structure used to stock a 6-bit unsigned integer used for
 //players communication.
 //
 //The 6 consecutive signals will either be SIGUSR1 or SIGUSR2 and

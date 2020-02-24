@@ -13,7 +13,7 @@
 //of the SIGUSR1 or SIGUSR2 have been caught.
 #define UNDEFINED -1
 
-//Returns a one_dimentional navy map coordinate from a two dimentionnal one.
+//Returns a one-dimentional navy map coordinate from a two-dimentionnal one.
 #define get_target_aim(x, y) 8 * (y - '1') + x - 'A'
 
 //A boolean enum.

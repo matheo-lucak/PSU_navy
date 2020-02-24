@@ -13,7 +13,7 @@ boolean_t update_map(char map[65], const binary_signal_t target)
         || map[target.bridge] == 'x') {
         map[target.bridge] = 'x';
         return (TRUE);
-    }
-    map[target.bridge] = 'o';
+    } else if (map[target.bridge] == '.')
+        map[target.bridge] = 'o';
     return (FALSE);
 }

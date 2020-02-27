@@ -24,13 +24,3 @@ Test(create_gameboards, correct_battleship_pos)
                                         "................"
                                         "................");
 }
-
-Test(create_gameboards, wrong_pathway)
-{
-    viewed_map_t gameboards;
-
-    if (!create_gameboards(&gameboards, "going_nowhere"))
-        cr_assert_eq(1, 1);
-    else
-        cr_assert_eq(1, 2);
-}

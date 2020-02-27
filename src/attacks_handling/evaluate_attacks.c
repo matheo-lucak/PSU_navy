@@ -23,7 +23,7 @@ boolean_t evaluate_enemy_attack(char ally_map[65])
     if (!hit_or_missed) {
         if (kill(co_info.enemy_pid, SIGUSR1))
             return (FALSE);
-    } else {    
+    } else {
         if (kill(co_info.enemy_pid, SIGUSR2))
             return (FALSE);
     }

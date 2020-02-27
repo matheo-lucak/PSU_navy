@@ -17,4 +17,4 @@ boolean_t battleships_left(const char map[65])
         index += 1;
     }
     return (FALSE);
-}   
+}

@@ -22,13 +22,6 @@ typedef enum boolean_e {
     TRUE
 } boolean_t;
 
-typedef enum game_intervals_e {
-    LEAVE,
-    CONTINUE,
-    MID_CURRENT_PLAYER,
-    MID_ENEMY_PLAYER
-} game_intervals_t;
-
 
 //Enum used to check an attack validity.
 typedef enum is_attack_valid_e {
@@ -41,6 +34,7 @@ typedef enum is_attack_valid_e {
 typedef enum game_winner_e {
     CURRENT_PLAYER = 0,
     ENEMY_PLAYER = 1,
+    LEAVE = 0,
     ERROR = 84
 } game_winner_t;
 

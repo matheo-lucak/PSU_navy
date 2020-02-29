@@ -9,7 +9,7 @@
 #include "my.h"
 #include "navy.h"
 
-is_attack_valid_t check_attack_error(char *input)
+int check_attack_error(char *input)
 {
     if (!input)
         return (LEAVE);
@@ -23,7 +23,7 @@ is_attack_valid_t check_attack_error(char *input)
 
 char *get_input(void)
 {
-    is_attack_valid_t input_validity = WRONG;
+    int input_validity = WRONG;
     char *input = NULL;
 
     while (input_validity != VALID) {

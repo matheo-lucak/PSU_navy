@@ -108,7 +108,7 @@ boolean_t battleships_left(const char map[65]);
 
 
 //Checks the validity of an input and free it in case of error
-is_attack_valid_t check_attack_error(char *input);
+int check_attack_error(char *input);
 
 //Gets an attack input while a valid one hasn't been given.
 char *get_input(void);

@@ -9,13 +9,13 @@
 #include "my.h"
 #include "navy.h"
 
-static is_attack_valid_t check_attack_error(char **input)
+is_attack_valid_t check_attack_error(char *input)
 {
-    if (!(*input))
+    if (!input)
         return (LEAVE);
-    if (my_strlen(*input) != 2 || (*input)[0] < 'A' || (*input)[0] > 'H'
-        || (*input)[1] < '1' || (*input)[1] > '8') {
-        free(*input);
+    if (my_strlen(input) != 2 || input[0] < 'A' || input[0] > 'H'
+        || input[1] < '1' || input[1] > '8') {
+        free(input);
         return (WRONG);
     }
     return (VALID);
@@ -29,7 +29,7 @@ char *get_input(void)
     while (input_validity != VALID) {
         my_putstr("\nattack: ");
         input = get_next_line(0);
-        input_validity = check_attack_error(&input);
+        input_validity = check_attack_error(input);
         if (input_validity == LEAVE)
             return (NULL);
         if (input_validity == WRONG)

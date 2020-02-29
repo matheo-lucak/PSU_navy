@@ -106,6 +106,10 @@ int navy_game_actions(viewed_map_t gameboards, const boolean_t play_first);
 //Checks if battleships are left onto a map.
 boolean_t battleships_left(const char map[65]);
 
+
+//Checks the validity of an input and free it in case of error
+is_attack_valid_t check_attack_error(char *input);
+
 //Gets an attack input while a valid one hasn't been given.
 char *get_input(void);
 

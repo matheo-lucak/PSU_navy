@@ -44,17 +44,17 @@ static boolean_t check_input(char *input)
 }
 
 static void assert_hit_or_missed(const binary_signal_t target,
-                                char **input, char enemy_map[65])
+                                char *input, char enemy_map[65])
 {
     if (co_info.catched_signal == SIGUSR1) {
-        my_printf("%s: missed\n", *input);
+        my_printf("%s: missed\n", input);
         enemy_map[target.bridge] = 'o';
     } else if (co_info.catched_signal == SIGUSR2) {
-        my_printf("%s: hit\n", *input);
+        my_printf("%s: hit\n", input);
         enemy_map[target.bridge] = 'x';
     }
-    if (*input)
-        free(*input);
+    if (input)
+        free(input);
 }
 
 boolean_t evaluate_my_attack(char enemy_map[65])
@@ -70,6 +70,6 @@ boolean_t evaluate_my_attack(char enemy_map[65])
         return (FALSE);
     while (!co_info.is_connected);
     co_info.is_connected = FALSE;
-    assert_hit_or_missed(target, &input, enemy_map);
+    assert_hit_or_missed(target, input, enemy_map);
     return (TRUE);
 }

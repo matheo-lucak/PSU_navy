@@ -40,7 +40,7 @@ static boolean_t send_binary_code(const binary_signal_t bin_signal)
         if (kill(co_info.enemy_pid, SIGUSR1))
             return (FALSE);
     }
-    usleep(10000);
+    usleep(5000);
     return (TRUE);
 }
 

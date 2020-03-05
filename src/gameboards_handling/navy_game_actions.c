@@ -24,7 +24,7 @@ static int game_state(const char ally_map[65], const boolean_t play_first)
         if (co_info.catched_signal == SIGUSR2)
             return (CURRENT_PLAYER);
     }
-    usleep(10000);
+    usleep(5000);
     if (battleships_left(ally_map))
         kill(co_info.enemy_pid, SIGUSR1);
     else {
@@ -57,7 +57,7 @@ static boolean_t attack_and_wait_enemy(viewed_map_t *gameboards,
         *is_game_finished = game_state(gameboards->ally_map, play_first);
         if ((*is_game_finished) != UNDEFINED)
             return (TRUE);
-        usleep(10000);
+        usleep(5000);
         if (!evaluate_enemy_attack(gameboards->ally_map))
             return (FALSE);
     }

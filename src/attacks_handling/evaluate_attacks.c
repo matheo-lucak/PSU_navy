@@ -48,7 +48,8 @@ static void assert_hit_or_missed(const binary_signal_t target,
 {
     if (co_info.catched_signal == SIGUSR1) {
         my_printf("%s: missed\n", input);
-        enemy_map[target.bridge] = 'o';
+        if (enemy_map[target.bridge] != 'x')
+            enemy_map[target.bridge] = 'o';
     } else if (co_info.catched_signal == SIGUSR2) {
         my_printf("%s: hit\n", input);
         enemy_map[target.bridge] = 'x';

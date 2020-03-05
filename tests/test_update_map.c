@@ -59,7 +59,7 @@ Test(update_map, double_hit_battleship)
         cr_assert_eq(1, 1);
     else
         cr_assert_eq(1, 2);
-    if (update_map(gameboards.ally_map, (binary_signal_t){0}))
+    if (!update_map(gameboards.ally_map, (binary_signal_t){0}))
         cr_assert_eq(1, 1);
     else
         cr_assert_eq(1, 2);

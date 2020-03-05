@@ -9,8 +9,7 @@
 
 boolean_t update_map(char map[65], const binary_signal_t target)
 {
-    if ((map[target.bridge] >= '2' && map[target.bridge] <= '5')
-        || map[target.bridge] == 'x') {
+    if (map[target.bridge] >= '2' && map[target.bridge] <= '5') {
         map[target.bridge] = 'x';
         return (TRUE);
     } else if (map[target.bridge] == '.')

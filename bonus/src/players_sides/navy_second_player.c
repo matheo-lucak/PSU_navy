@@ -10,7 +10,8 @@
 #include "errno.h"
 #include "navy.h"
 
-SOCKADDR_IN create_client_interface(SOCKET sock, short port, const char *hostname)
+SOCKADDR_IN create_client_interface(SOCKET sock, short port,
+                                        const char *hostname)
 {
     SOCKADDR_IN sin = {0};
 

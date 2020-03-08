@@ -16,7 +16,8 @@ static void print_winner(const int winner)
         my_putstr("\nEnemy won\n\n");
 }
 
-static int game_state(SOCKET sock, const char ally_map[65], const boolean_t play_first)
+static int game_state(SOCKET sock, const char ally_map[65],
+                                    const boolean_t play_first)
 {
     char signal_receiver = 0;
     if (!play_first) {
@@ -63,7 +64,8 @@ static boolean_t attack_and_wait_enemy(SOCKET sock, viewed_map_t *gameboards,
     return (TRUE);
 }
 
-int navy_game_actions(SOCKET sock, viewed_map_t gameboards, const boolean_t play_first)
+int navy_game_actions(SOCKET sock, viewed_map_t gameboards,
+                                        const boolean_t play_first)
 {
     int is_game_finished = UNDEFINED;
     int attack_state = UNDEFINED;

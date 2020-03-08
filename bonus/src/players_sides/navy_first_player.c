@@ -34,7 +34,7 @@ SOCKADDR_IN create_serv_interface(SOCKET sock, short port)
         write(2, "Error on bind\n", 14);
         exit(84);
     }
-    printf("Port : %d\n", ntohs(sin.sin_port));
+    my_printf("Port : %d\n", ntohs(sin.sin_port));
     return (sin);
 }
 
@@ -63,14 +63,14 @@ int navy_first_player(const char path_boats_pos[])
     SOCKET clients_sock;
     SOCKADDR_IN sin = create_serv_interface(sock, 8000);
     SOCKADDR_IN clients_sin;
-    int sinsize = sizeof (clients_sin);
+    int sinsize = sizeof(clients_sin);
 
     if (listen(sock, 1) == SOCKET_ERROR) {
         write(2, "Too many connexions !\n", 22);
         return (1);
     }
     clients_sock = accept(sock, (SOCKADDR *)&clients_sin, &sinsize);
-    if(clients_sock == INVALID_SOCKET) {
+    if (clients_sock == INVALID_SOCKET) {
         write(2, "Couldn't accept connection\n", 27);
         return (1);
     }

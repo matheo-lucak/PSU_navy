@@ -110,7 +110,8 @@ boolean_t leftovers_in_file(const int fd);
 */
 
 //Main loop of the game, shifted for the two players.
-int navy_game_actions(SOCKET sock, viewed_map_t gameboards, const boolean_t play_first);
+int navy_game_actions(SOCKET sock, viewed_map_t gameboards,
+                                    const boolean_t play_first);
 
 //Checks if battleships are left onto a map.
 boolean_t battleships_left(const char map[65]);

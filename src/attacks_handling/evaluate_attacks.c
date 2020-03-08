@@ -39,7 +39,7 @@ static boolean_t check_input(char *input)
     }
     if (kill(co_info.enemy_pid, SIGUSR2))
         return (FALSE);
-    usleep(3000);
+    usleep(5000);
     return (TRUE);
 }
 

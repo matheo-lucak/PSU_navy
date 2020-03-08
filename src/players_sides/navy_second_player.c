@@ -29,7 +29,7 @@ static void setup_signal_connection(const int first_player_pid)
 {
     co_info.enemy_pid = first_player_pid;
     co_info.sa.sa_handler = (void *)get_enemy_signal;
-    co_info.sa.sa_flags = SA_SIGINFO;
+    co_info.sa.sa_flags = SA_SIGINFO | SA_NODEFER;
 }
 
 int navy_second_player(const int first_player_pid, const char path_boats_pos[])

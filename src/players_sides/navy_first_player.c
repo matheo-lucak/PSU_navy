@@ -30,7 +30,7 @@ static boolean_t wait_enemy_connection(void)
 static void setup_signal_connection(void)
 {
     co_info.sa.sa_handler = (void *)get_enemy_pid;
-    co_info.sa.sa_flags = SA_SIGINFO;
+    co_info.sa.sa_flags = SA_SIGINFO | SA_NODEFER;
 }
 
 int navy_first_player(const char path_boats_pos[])
